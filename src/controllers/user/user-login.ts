@@ -5,9 +5,6 @@ import { eq } from "drizzle-orm"
 import bcrypt from "bcryptjs"
 import { z } from 'zod'
 import { sign } from 'hono/jwt'
-import {
-    setCookie,
-} from 'hono/cookie'
 
 // 2. Validar los datos del Usuario
 export const loginSchema = z.object({
@@ -35,7 +32,7 @@ export const userLogin = async (c: Context) => {
     if (!user) {
         return c.json({ message: 'Invalid credentials' }, 401)
     }
-    
+
     // 4. Verificar si la contraseña es correcta
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
@@ -44,38 +41,16 @@ export const userLogin = async (c: Context) => {
     }
 
     // 5. Si la contraseña es correcta, retornar un mensaje de éxito y el token
-    // Generar access token (1h de duración)
-    const accessToken = await sign(
-        { id: user.id, email: user.email, exp: 3600 },
-        process.env.JWT_SECRET!,
-        'HS256'
-    )
-    
-    // Generar refresh token (7 días de duración)
-    const refreshToken = await sign(
-        { id: user.id, email: user.email },
-        process.env.JWT_SECRET!,
-        'HS256'
-    )
+    const payload = {
+        id: user.id,
+        email: user.email,
+        exp: 3600
+    }
 
-    // Establecer cookies
-    setCookie(c, 'auth_token', accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'Strict',
-        path: '/',
-        maxAge: 3600
-    })
-
-    setCookie(c, 'refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'Strict',
-        path: '/',
-        maxAge: 604800 // 7 días
-    })
+    const accessToken = await sign(payload, process.env.JWT_SECRET!, 'HS256')
 
     return c.json({
         message: 'User Login!',
+        accessToken
     })
 }
