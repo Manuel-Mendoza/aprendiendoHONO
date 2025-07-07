@@ -44,13 +44,12 @@ export const userLogin = async (c: Context) => {
     const payload = {
         id: user.id,
         email: user.email,
-        exp: 3600
     }
 
-    const accessToken = await sign(payload, process.env.JWT_SECRET!, 'HS256')
+    const token = await sign(payload, process.env.JWT_SECRET!, 'HS256')
 
     return c.json({
         message: 'User Login!',
-        accessToken
+        token
     })
 }
