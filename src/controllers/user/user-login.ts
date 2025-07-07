@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs"
 import { z } from 'zod'
 import { sign } from 'hono/jwt'
 
-// 2. Validar los datos del Usuario
+// 2. Middleware Validador
 export const loginSchema = z.object({
     email: z.string().trim().toLowerCase().email({
         message: 'Invalid email address'
@@ -16,6 +16,7 @@ export const loginSchema = z.object({
     })
 })
 
+// Controlador
 export const userLogin = async (c: Context) => {
     // 1. Obtener los datos del Usuario desde el Body
     const body = await c.req.json()
@@ -44,6 +45,7 @@ export const userLogin = async (c: Context) => {
     const payload = {
         id: user.id,
         email: user.email,
+        username: user.username
     }
 
     const token = await sign(payload, process.env.JWT_SECRET!, 'HS256')
