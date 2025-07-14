@@ -8,7 +8,16 @@ export const userIsLogin = async (c: Context, next: Next) => {
         return c.json({ message: "Unauthorized" }, 401);
     }
     const token = tokenHeader.split(" ")[1];
-    const payload = await verify(token, process.env.JWT_SECRET!);
+    let payload;
+
+    try {
+        const payloadBueno = await verify(token, process.env.JWT_SECRET!)
+        payload = payloadBueno
+
+    } catch {
+        return c.json({ message: "error" }, 401);
+
+    }
     c.set("user", payload);
     next()
 }
