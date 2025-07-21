@@ -20,7 +20,8 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "noEmit": true
+    "noEmit": false,
+    "outDir": "./dist"
   },
   "exclude": [
     "node_modules"

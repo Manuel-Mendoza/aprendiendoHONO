@@ -1,5 +1,5 @@
-import { db } from "../../db/index.ts";
-import { usersTable } from "../../db/schemas/user.schema.ts";
+import { db } from "@/db/index";
+import { usersTable } from "@/db/schemas/user.schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { z } from 'zod';

@@ -1,9 +1,9 @@
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
-import loginRouter from './routers/login.route.ts';
-import registerRouter from './routers/register.route.ts';
+import loginRouter from '@/routers/login.route';
+import registerRouter from '@/routers/register.route';
 import { cors } from 'hono/cors';
-import { userCheckRouter } from './routers/userCheck.route.ts';
+import { userCheckRouter } from '@/routers/userCheck.route';
 const app = new Hono();
 app.use(cors({
     origin: '*',
