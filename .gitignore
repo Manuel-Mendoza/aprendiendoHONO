@@ -10,10 +10,10 @@
 
 # deps
 node_modules/
-dist/
 
 # build
 build/
+dist/
 
 # env
 .env

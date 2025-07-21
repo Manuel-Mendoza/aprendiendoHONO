@@ -1,5 +1,5 @@
-import { db } from "@/db/index";
-import { usersTable } from "@/db/schemas/user.schema";
+import { db } from "../../db/index.js";
+import { usersTable } from "../../db/schemas/user.schema.js";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { z } from 'zod';
