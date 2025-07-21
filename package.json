@@ -10,11 +10,11 @@
     "@hono/node-server": "^1.14.4",
     "@hono/zod-validator": "^0.7.0",
     "@libsql/client": "^0.15.9",
-    "bcryptjs": "^3.0.2",
     "dotenv": "^17.0.0",
     "drizzle-orm": "^0.44.2",
     "hono": "^4.8.3",
-    "zod": "^3.25.67"
+    "bcryptjs": "3.0.2",
+    "zod": "3.25.67"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
