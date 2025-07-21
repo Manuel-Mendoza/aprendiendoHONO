@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
-import { userRegister, registerSchema } from '../controllers/user/user-register.ts'
+import { userRegister, registerSchema } from '@/controllers/user/user-register'
 
 const registerRouter = new Hono()
 
